@@ -1,0 +1,6 @@
+127.0.0.1 - - [15/Apr/2024:17:49:49 -0700] "GET / HTTP/1.1" 404 752
+0:0:0:0:0:0:0:1 - - [15/Apr/2024:17:49:51 -0700] "GET /welcomeServlet/WEB-INF/classes/com/welcome/HelloServlet.java HTTP/1.1" 404 683
+0:0:0:0:0:0:0:1 - - [15/Apr/2024:17:49:52 -0700] "GET /favicon.ico HTTP/1.1" 404 763
+0:0:0:0:0:0:0:1 - - [15/Apr/2024:17:51:05 -0700] "GET /welcomeServlet/WEB-INF/classes/com/welcome/HelloServlet.java HTTP/1.1" 404 683
+127.0.0.1 - - [15/Apr/2024:17:52:40 -0700] "GET / HTTP/1.1" 404 752
+0:0:0:0:0:0:0:1 - - [15/Apr/2024:17:52:42 -0700] "GET /welcomeServlet/WEB-INF/classes/com/welcome/HelloServlet.java HTTP/1.1" 404 683

@@ -1,0 +1,75 @@
+
+
+import jakarta.servlet.ServletConfig;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+/**
+ * Servlet implementation class ViewUserData
+ */
+public class ViewUserData extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+	private Connection connection=null;
+ 
+	public void init(ServletConfig config) throws ServletException {
+		// TODO Auto-generated method stub
+		try {
+			ServletContext servletContext=config.getServletContext();
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			connection=DriverManager.getConnection(servletContext.getInitParameter("connectionURL"),servletContext.getInitParameter("userName"),servletContext.getInitParameter("password"));
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * @see Servlet#destroy()
+	 */
+	public void destroy() {
+		// TODO Auto-generated method stub
+		try {
+			connection.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		try {
+		Statement statement = connection.createStatement();
+		
+		ResultSet resultSet=statement.executeQuery("select * from account");
+		while(resultSet.next()) {
+			System.out.println("ID of User is "+resultSet.getInt(1));
+			System.out.println("FirstNAme User is "+resultSet.getString(2));
+			System.out.println("LastNAme User is "+resultSet.getString(3));
+			System.out.println("Bal Of User is "+resultSet.getInt(4));
+			System.out.println("---------------------------------------------");
+			
+			statement.close();
+		}
+	}catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+}
+	}
+
+}
