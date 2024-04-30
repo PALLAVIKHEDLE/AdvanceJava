@@ -19,7 +19,7 @@ public class HelloServlet extends HttpServlet {
 	 */
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-//		response.getWriter().append("Served at: ").append(request.getContextPath());
+
 		    response.setContentType("text/html"); 
          
 	        PrintWriter writer = response.getWriter(); 
@@ -28,16 +28,6 @@ public class HelloServlet extends HttpServlet {
 	        writer.append("<body>"); 
 	        writer.append("<h1>Welcome Servlet</h1>"); 
 	        writer.append("</html>"); 
-	        writer.append("</body>"); 
-	      
+	        writer.append("</body>"); 	      
 	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-//	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		// TODO Auto-generated method stub
-//		doGet(request, response);
-//	}
-
 }

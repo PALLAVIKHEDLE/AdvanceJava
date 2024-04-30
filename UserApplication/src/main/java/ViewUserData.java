@@ -25,6 +25,7 @@ public class ViewUserData extends HttpServlet {
 		// TODO Auto-generated method stub
 		try {
 			ServletContext servletContext=config.getServletContext();
+//			ServletContext servletContext=getServletContext();//This method will come from the generic servlet class
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			connection=DriverManager.getConnection(servletContext.getInitParameter("connectionURL"),servletContext.getInitParameter("userName"),servletContext.getInitParameter("password"));
 			System.out.println("Connection Established ");	
@@ -56,10 +57,9 @@ public class ViewUserData extends HttpServlet {
 		try {
 			Statement statement = connection.createStatement();	
 			ResultSet resultSet=statement.executeQuery("select * from user");
-
-
 			while(resultSet.next()) {
-				System.out.println("User's FirstName is "+resultSet.getString("firstName").trim());
+//				System.out.println("User's FirstName is "+resultSet.getString("firstName").trim());
+				System.out.println("User's LastName is "+resultSet.getString(1).trim());
 				System.out.println("User's LastName is "+resultSet.getString(2).trim());
 				System.out.println("UserName  is "+resultSet.getString(3).trim());
 				System.out.println("Password is "+resultSet.getString(4).trim());
