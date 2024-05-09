@@ -54,7 +54,7 @@ public class LoginServlet extends HttpServlet {
 			} else {
 				session.setAttribute("error", "Invalid Login");
 				RequestDispatcher requestDispatcher = request.getRequestDispatcher("Login.jsp");
-				requestDispatcher.forward(request, response);
+				requestDispatcher.include(request, response);
 			}
 
 
