@@ -70,14 +70,14 @@ public class RegistrationServlet extends HttpServlet {
 	                        // Registration successful, forward to login page
 	                        HttpSession session = request.getSession();
 	                        session.setAttribute("userName", userName);
-	                        RequestDispatcher requestDispatcher = request.getRequestDispatcher("Login.jsp");
+	                        RequestDispatcher requestDispatcher = request.getRequestDispatcher("RegistrationSuccess.jsp");
 						      requestDispatcher.forward(request, response);
 	                    } else {
 	                        // Registration failed
 	                        HttpSession session = request.getSession();
 	                        session.setAttribute("error", "Registration failed");
 	                        RequestDispatcher requestDispatcher = request.getRequestDispatcher("Registration.jsp");
-						      requestDispatcher.forward(request, response);
+						      requestDispatcher.include(request, response);
 	                    }
 	                    statement.close(); // Close the PreparedStatement
 	                }

@@ -14,6 +14,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Servlet implementation class LoginServlet
@@ -34,6 +36,12 @@ public class LoginServlet extends HttpServlet {
 			String firstName = "";
 			String userName = request.getParameter("userName");
 			String password = request.getParameter("password");
+			String orderID="";
+			String itemName="";
+			String purchaseDate="";
+			String amount="";
+			
+			List<String[]> orders = new ArrayList<>();
 			if (null != userName && null != password) {
 				if (connection != null) {
 					PreparedStatement statement = connection
@@ -44,11 +52,27 @@ public class LoginServlet extends HttpServlet {
 					while (resultSet.next()) {
 						firstName = resultSet.getString(1);
 					}
+					
+					
+					PreparedStatement orderStatement = connection
+							.prepareStatement("select * from orderDetails");
+					ResultSet orderSet = orderStatement.executeQuery();	
+					while (orderSet.next()) {
+						orderID = orderSet.getString(1);
+						itemName = orderSet.getString(2);
+						purchaseDate = orderSet.getString(3);
+						amount = orderSet.getString(4);
+						
+						 // Create a String array to represent an order and add to orders list
+                        String[] orderData = {orderID, itemName, purchaseDate, amount};
+                        orders.add(orderData);
+					}
 				}
 			}
 			HttpSession session = request.getSession();
 			if (firstName.length() != 0) {
 				session.setAttribute("userName", userName);
+				session.setAttribute("orders", orders);
 				RequestDispatcher requestDispatcher = request.getRequestDispatcher("SuccessPage.jsp");
 				requestDispatcher.forward(request, response);
 			} else {
