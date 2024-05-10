@@ -66,6 +66,7 @@ public class LoginServlet extends HttpServlet {
 						 // Create a String array to represent an order and add to orders list
                         String[] orderData = {orderID, itemName, purchaseDate, amount};
                         orders.add(orderData);
+
 					}
 				}
 			}
