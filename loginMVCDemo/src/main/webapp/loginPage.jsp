@@ -19,7 +19,7 @@ if(session.getAttribute("firstName") != null){
 	requestDispatcher.forward(request, response);
 } 
 %></h1>
-<form action="loginServlet" method="post">
+<form action="loginController" method="post">
 UserName : <input type="text" name="userName"><br>
 Password : <input type="text" name="password"><br>
 <input type="submit">
