@@ -44,12 +44,12 @@ public class Person {
 
 	@PostConstruct
 	public void init() {
-		System.out.println("entered Into init method");
+		System.out.println("entered Into init method for PersonContructorInjection");
 	}
 
 	@PreDestroy
 	public void destroy() {
-		System.out.println("entered Into Destroy method");
+		System.out.println("entered Into Destroy method for PersonContructorInjection");
 	}
 
 }
