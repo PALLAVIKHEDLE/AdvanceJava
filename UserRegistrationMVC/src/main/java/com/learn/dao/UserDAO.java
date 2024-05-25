@@ -10,29 +10,63 @@ import com.learn.bean.UserBean;
 
 public class UserDAO {
 
-	public static UserBean getUserBean(UserBean userBean) {
+	private static final String URL = "jdbc:mysql://localhost:3306/training";
+	private static final String USER = "root";
+	private static final String PASSWORD = "root@123";
 
-		Connection connection;
+	static {
 		try {
+			// Load the MySQL JDBC driver
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/training", "root", "root@123");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+			throw new RuntimeException("Failed to load MySQL JDBC driver");
+		}
+	}
 
+	public UserBean getUserBean(UserBean userBean) {
+		try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD)) {
 			PreparedStatement statement = connection
-					.prepareStatement("select * from registration where userName=? and password=?");
+					.prepareStatement("SELECT * FROM registration WHERE userName=? AND password=?");
 			statement.setString(1, userBean.getUserName());
 			statement.setString(2, userBean.getPassword());
 			ResultSet resultSet = statement.executeQuery();
-			while (resultSet.next()) {
-				userBean.setFirstName(resultSet.getString(1));
-				userBean.setLastName(resultSet.getString(2));
+			if (resultSet.next()) {
+				userBean.setFirstName(resultSet.getString("firstName"));
+				userBean.setLastName(resultSet.getString("lastName"));
 			}
-
+			resultSet.close();
+			statement.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
 		}
-
 		return userBean;
+	}
+
+	public boolean isUserExists(String userName) throws SQLException {
+		try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD)) {
+			PreparedStatement checkStatement = connection
+					.prepareStatement("SELECT * FROM registration WHERE userName = ?");
+			checkStatement.setString(1, userName);
+			ResultSet resultSet = checkStatement.executeQuery();
+			boolean exists = resultSet.next();
+			resultSet.close();
+			checkStatement.close();
+			return exists;
+		}
+	}
+
+	public boolean registerUser(UserBean userBean) throws SQLException {
+		try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD)) {
+			PreparedStatement statement = connection.prepareStatement(
+					"INSERT INTO registration (firstName, lastName, userName, password) VALUES (?, ?, ?, ?)");
+			statement.setString(1, userBean.getFirstName());
+			statement.setString(2, userBean.getLastName());
+			statement.setString(3, userBean.getUserName());
+			statement.setString(4, userBean.getPassword());
+			int rowsInserted = statement.executeUpdate();
+			statement.close();
+			return rowsInserted > 0;
+		}
 	}
 }
