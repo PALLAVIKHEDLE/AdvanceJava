@@ -7,6 +7,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>Welcome to spring MVC Project </h1>
+ <h1>
+ <%
+ out.println(request.getAttribute("Message"));
+ %>
+ </h1>
 </body>
 </html>
