@@ -43,7 +43,8 @@ public class applicationController {
 
 			// Add orders to the model
 			modelAndView.addObject("orderList", orders);
-			modelAndView.addObject("message", "Registration Succeeded, now You have access for Order Details!!");
+			modelAndView.addObject("message",
+					"Welcome, Registration Succeeded, now You have access for Order Details!!");
 		} else {
 			modelAndView.setViewName("registration");
 			modelAndView.addObject("message", result);

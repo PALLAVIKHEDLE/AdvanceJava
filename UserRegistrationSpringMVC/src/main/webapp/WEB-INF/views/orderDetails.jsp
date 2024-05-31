@@ -22,9 +22,9 @@
 </head>
 <body>
     <div class="container">
-        <h1>Welcome, ${message}!</h1>
+        <h1> ${message}!</h1>
 
-        <h2>Order Details</h2>
+        <h2>Your Orders</h2>
         <table class="table table-striped">
             <thead>
                 <tr>
