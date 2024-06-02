@@ -66,9 +66,7 @@ public class WelcomeController {
 	@RequestMapping(value = "/addStudent", method = RequestMethod.POST)
 	public ModelAndView addStudent(@ModelAttribute Student student) {
 		ModelAndView modelAndview = new ModelAndView();
-
 		modelAndview.setViewName("displayStudent");
-
 		modelAndview.addObject("student", student);
 
 		return modelAndview;
